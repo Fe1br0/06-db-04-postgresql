@@ -89,6 +89,18 @@ test_database=#
 ```
 CREATE INDEX ON orders ((lower(title)));
 ```
+Если я правильно понял доку по postgre то можно поступить следующим образом:
+
+```
+ALTER TABLE ONLY orders ADD UNIQUE (title);
+
+ALTER TABLE orders_less499 ADD UNIQUE (title);
+ALTER TABLE orders_more499 ADD UNIQUE (title);
+ALTER INDEX orders_title
+    ATTACH PARTITION orders_less499_title
+    ATTACH PARTITION orders_more499_title
+```
+
 
 ---
 
